@@ -3,7 +3,7 @@ import { Player } from "."
 describe("Player tests", () => {
     let player: Player
 
-    beforeAll(() => { // Before each "it" test, start with a new Player instance
+    beforeEach(() => { // Before each "it" test, start with a new Player instance
         player = new Player()
     })
 
