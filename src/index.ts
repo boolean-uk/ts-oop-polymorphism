@@ -1,53 +1,32 @@
+import { Attack } from "./attack"
+import { CharacterRace } from "./characterRace";
+import { CharacterClass } from "./characterclasses/characterclass"
+
 export class Player {
-    private _health = 52 // when this reaches 0, the player dies
-    private _armour = 14 // an attack must be >= this to hit the player
+    private _health = 27 // when this reaches 0, the player dies
+    private _armour = 7 // an attack must be >= this to hit the player
+
+    constructor(private characterclass: CharacterClass, private characterrace: CharacterRace){};
 
     get health(): number {
-        return this._health
+        return (this._health * this.characterrace.healthMultiplier)  + this.characterclass.healthBonus;
     }
 
-    takeHit(attackType: string): string {
+    get armor(): number{
+        return (this._armour * this.characterrace.armorMultiplier )+ this.characterclass.armorBonus;
+    }
+
+    takeHit(attackType: Attack): string {
         let damage: number
-
-        if (attackType === 'sword') {
-            const attackRoll = Math.floor(Math.random() * (20 - 2) + 1) // generate an int between 1 and 20
-
-            if (attackRoll >= this._armour) {
-                damage = Math.floor(Math.random() * (8 - 2) + 1)
-                this._health -= damage
-            } else {
-                return 'The sword attack missed!'
-            }
-        } else if (attackType === 'fire spell') {
-            const attackRoll = Math.floor(Math.random() * (20 - 2) + 1)
-
-            if (attackRoll >= this._armour) {
-                damage = Math.floor(Math.random() * (12 - 2) + 1)
-                this._health -= damage
-            } else {
-                return 'The fire spell attack missed!'
-            }
-        } else if (attackType === 'ice spell') {
-            const attackRoll = Math.floor(Math.random() * (20 - 2) + 1)
-
-            if (attackRoll >= this._armour) {
-                damage = Math.floor(Math.random() * (12 - 2) + 1)
-                this._health -= damage
-            } else {
-                return 'The ice spell attack missed!'
-            }
-        } else if (attackType === 'axe') {
-            const attackRoll = Math.floor(Math.random() * (20 - 2) + 1)
-
-            if (attackRoll >= this._armour) {
-                damage = Math.floor(Math.random() * (10 - 2) + 1)
-                this._health -= damage
-            } else {
-                return 'The axe attack missed!'
-            }
+        const attackRoll = Math.floor(Math.random() * (20 - 2) + 1) 
+        // generate an int between 1 and 20
+        if (attackRoll >= this.armor) {
+            damage =attackType.getdamage()
+            this._health -= damage / this.characterrace.healthMultiplier;
         } else {
-            return 'Not a valid attack!'
+            return attackType.message
         }
+        
 
         return `The attack hit for ${damage} damage! The player now has ${this._health} health.`
     }
