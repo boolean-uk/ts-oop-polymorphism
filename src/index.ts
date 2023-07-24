@@ -1,3 +1,9 @@
+import { Attack } from "./interfaces";
+import { Sword } from "./sword";
+import { fireSpell } from "./fireSpell";
+import { iceSpell } from "./iceSpell";
+import { Axe } from "./axe";
+
 export class Player {
     private _health = 52 // when this reaches 0, the player dies
     private _armour = 14 // an attack must be >= this to hit the player
@@ -8,47 +14,34 @@ export class Player {
 
     takeHit(attackType: string): string {
         let damage: number
+        let attack: Attack
 
-        if (attackType === 'sword') {
-            const attackRoll = Math.floor(Math.random() * (20 - 2) + 1) // generate an int between 1 and 20
-
-            if (attackRoll >= this._armour) {
-                damage = Math.floor(Math.random() * (8 - 2) + 1)
-                this._health -= damage
-            } else {
-                return 'The sword attack missed!'
-            }
-        } else if (attackType === 'fire spell') {
-            const attackRoll = Math.floor(Math.random() * (20 - 2) + 1)
-
-            if (attackRoll >= this._armour) {
-                damage = Math.floor(Math.random() * (12 - 2) + 1)
-                this._health -= damage
-            } else {
-                return 'The fire spell attack missed!'
-            }
-        } else if (attackType === 'ice spell') {
-            const attackRoll = Math.floor(Math.random() * (20 - 2) + 1)
-
-            if (attackRoll >= this._armour) {
-                damage = Math.floor(Math.random() * (12 - 2) + 1)
-                this._health -= damage
-            } else {
-                return 'The ice spell attack missed!'
-            }
-        } else if (attackType === 'axe') {
-            const attackRoll = Math.floor(Math.random() * (20 - 2) + 1)
-
-            if (attackRoll >= this._armour) {
-                damage = Math.floor(Math.random() * (10 - 2) + 1)
-                this._health -= damage
-            } else {
-                return 'The axe attack missed!'
-            }
-        } else {
+       switch (attackType) {
+        case 'sword':
+            attack = new Sword()
+            break
+        case 'fire spell':
+            attack = new fireSpell()
+            break
+        case 'ice spell':
+            attack = new iceSpell()
+            break
+        case 'axe':
+            attack = new Axe()
+            break
+        default:
             return 'Not a valid attack!'
-        }
+       }
 
-        return `The attack hit for ${damage} damage! The player now has ${this._health} health.`
+       const attackRoll = attack.attackRoll()
+
+       if (attackRoll >= this._armour) {
+        const damage = attack.calculateDamage()
+        this._health -= damage
+        return attack.getHitMessage(damage, this._health) }
+
+        else {
+            return attack.getMissMessage()
+       }
     }
 }
