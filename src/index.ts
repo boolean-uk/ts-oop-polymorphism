@@ -1,45 +1,50 @@
-import { Attack } from "./Attack"
-import { AxeAttack } from "./AxeAttack"
-import { FireSpellAttack } from "./FireSpellAttack"
-import { IceSpellAttack } from "./IceSpellAttack"
-import { SwordAttack } from "./SwordAttack"
+import readline from 'readline';
+import { Player } from './Player';
+class RPG{
+    playRPG():void{
+        let you=new Player()
+        const rl = readline.createInterface({
+            input: process.stdin,
+            output: process.stdout,
+          });
+        console.log("Write your player Name:")
+        rl.question('Enter your name: ', (name) => {
+            console.log(`You chose player Name ${name}+!`);
+           you.setName(name);
+            }
+           // rl.close();
+          );
+        you.CharacterBuilder()
+        let enemy=new Player()
+        enemy.setName("enemy1")
+        you.addEnemy(enemy)
 
-export class Player {
-    private _health = 52 // when this reaches 0, the player dies
-    private _armour = 14 // an attack must be >= this to hit the player
+        let enemy2=new Player()
+        enemy.setName("enemy2")
+        you.addEnemy(enemy2)
 
-    get health(): number {
-        return this._health
-    }
+        let thing="water"
+        console.log("Write your equipment thing:")
+        rl.question('Enter your thing: ', (thing) => {
+            console.log(`You chose equipment ${thing}+!`);
+           you.addAttackToEquipment(thing)
+            }
+           // rl.close();
+          );
+          console.log("Choose your Enamy:")
+          console.log("1 ")
+          console.log("2 ")
+            let nenemy=you.enemies[0]
+          rl.question('Enter a number (1-2): ', (num) => {
+              console.log(`You chose character class ${num}+!`);
+              switch(num){
+                  case '1': nenemy=you.enemies[0]
+                  case '2': nenemy=you.enemies[1]
+                 
+              }
+             // rl.close();
+            });
+        you.SpecificCombatEncounters(nenemy,'sword')
 
-    takeHit(attackType: string): string {
-        let damage: number
-        let newAttack: Attack
-
-        switch (attackType){
-            case 'sword':
-                newAttack = new SwordAttack()
-                break;
-            case 'fire spell':
-                newAttack = new FireSpellAttack()
-                break;
-            case 'ice spell':
-                newAttack = new IceSpellAttack()
-                break;
-            case 'axe':
-                newAttack = new AxeAttack()
-                break;
-            default:
-                return 'Not a valid attack!'
-        }
-    
-        if (newAttack.attackRoll() >= this._armour) {
-            damage = newAttack.damage(newAttack.damageNumber)
-            this._health -= damage
-        } else {
-            return 'The ' + attackType + ' attack missed!'
-        }
-
-        return `The attack hit for ${damage} damage! The player now has ${this._health} health.`
     }
 }

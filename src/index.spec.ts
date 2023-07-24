@@ -1,4 +1,7 @@
-import { Player } from "."
+import { Player } from './Player';
+import { Attack } from "./Attack"
+import { IceSpellAttack } from "./IceSpellAttack"
+import { SwordAttack } from "./SwordAttack"
 
 describe("Player tests", () => {
     let player: Player
@@ -8,19 +11,21 @@ describe("Player tests", () => {
     })
 
     it("should not use invalid attacks", () => {
-        const result = player.takeHit('banana')
+        const banana=new Attack()
+        const result = player.takeHit(banana)
         expect(result).toEqual('Not a valid attack!')
     })
 
     it("should return correct type in missed message", () => {
         let result
+        const sword=new SwordAttack()
         do {
-            result = player.takeHit('sword')
+            result = player.takeHit(sword)
         } while (!result.includes('missed'))
         expect(result).toEqual('The sword attack missed!')
 
         do {
-            result = player.takeHit('ice spell')
+            result = player.takeHit(new IceSpellAttack())
         } while (!result.includes('missed'))
         expect(result).toEqual('The ice spell attack missed!')
     })
@@ -29,7 +34,7 @@ describe("Player tests", () => {
         let result
 
         do {
-            result = player.takeHit('sword')
+            result = player.takeHit(new SwordAttack())
         } while (result.includes('missed'))
 
         expect(player.health).toBeLessThan(52)

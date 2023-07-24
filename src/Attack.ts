@@ -4,7 +4,7 @@ export class Attack implements AttackInterface {
     attackType: string
     damageNumber: number
     constructor() {
-        this.attackType = "" 
+        this.attackType = ""
         this.damageNumber = 0      
     }
     damage(damageNumber: number): number {
