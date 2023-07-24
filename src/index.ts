@@ -1,4 +1,4 @@
-const Attack = require('../../src/attack.ts')
+import { Attack } from "../src/attack"
 
 export class Player {
     private _health = 52 // when this reaches 0, the player dies
@@ -12,10 +12,17 @@ export class Player {
         let damage: number
         {
             const attack = new Attack(attackType)
-            if (this.didAttackMiss()===false){
-                this._health -= attack.damageEnemy()
+            const damage = attack.damageEnemy()
+            console.log(damage)
+            if (damage===0){
+                return 'Not a valid attack!'
             }
-            else return 'The' + attack.attackType + 'attack missed!'
+            else if (this.didAttackMiss()===false){
+                
+                this._health -= damage    
+                return `The attack hit for ${damage} damage! The player now has ${this._health} health.`
+            }
+            else return 'The ' + attack.attackType + ' attack missed'
         }
     }
 
@@ -26,8 +33,4 @@ export class Player {
         }
         return true
     }
-}
-
-module.exports{
-    Player:Player
 }

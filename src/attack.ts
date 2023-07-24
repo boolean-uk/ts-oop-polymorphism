@@ -1,10 +1,11 @@
-class Attack {
+export class Attack {
     public attackType : string
     constructor(attackType: string){
         this.attackType = attackType
     }
     
     damageEnemy(){
+        
         if (this.attackType==='sword'){
            return Math.floor(Math.random() * (8 - 2) + 1)
         }
@@ -14,11 +15,6 @@ class Attack {
         if (this.attackType==='axe'){
             return Math.floor(Math.random() * (10 - 2) + 1)
         }
-        else return 0
-        
+        return 0
     }
-}
-
-module.exports{
-    Attack: Attack
 }
