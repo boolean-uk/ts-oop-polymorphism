@@ -1,9 +1,13 @@
 import { Sword } from "./sword"
+import { FireSpell } from "./FireSpell"
+import { IceSpell } from "./IceSpell"
+import { Axe } from "./axe"
+import { Attack } from "./attack"
 
 export class monster {
 
     private hp : number
-    private weapons: Attack[] = [new Axe(), new Sword(), new FireSpell(), new IceSpell()]
+    private weapons: Attack[] = [new Axe(),new Sword(), new FireSpell(), new IceSpell()]
     private weapon : Attack
 
     constructor() {

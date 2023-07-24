@@ -1,3 +1,3 @@
-interface inventory {
+export interface Inventory {
     armor() : number
 }

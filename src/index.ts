@@ -1,4 +1,4 @@
-// import { Attack } from "./attack"
+import { Attack } from "./attack"
 import { boots } from "./boots"
 import { chest } from "./chest"
 import { helmet } from "./helmet"
@@ -7,8 +7,8 @@ import { Sword } from "./sword"
 export class Player {
 
     private _health = 52 // when this reaches 0, the player dies
-    private playerWeapon : Attack
-    private items: inventory[] = [new helmet(),new boots(),new chest()]
+    private playerWeapon 
+    private items = [new helmet(),new boots(),new chest()]
     //private _armour = 14 // an attack must be >= this to hit the player
 
     constructor() {
@@ -19,11 +19,11 @@ export class Player {
         return this._health
     }
 
-    get weapon(): Attack {
+    get weapon() {
         return this.playerWeapon
     }
 
-    takeHit(attack : Attack) : string {
+    takeHit(attack : Attack) {
         let damage = attack.countDamage()
         {
             if (this.didAttackMiss()===false){
