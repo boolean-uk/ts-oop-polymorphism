@@ -23,8 +23,6 @@ constructor() {
         }
 }
  
-      
-      
     set armour(value: number) {
         if (value >= 0) {
           this._armour = value;
