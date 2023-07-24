@@ -4,7 +4,7 @@ interface Equipment{
 }
 
 class Gloves implements Equipment{
-    name = 'Glove'
+    name = 'Gloves'
     armour = 2
 }
 

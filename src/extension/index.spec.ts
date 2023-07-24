@@ -100,8 +100,16 @@ describe("Player tests", () => {
 
     })
 
-    it("should icrease armour when shield is added to inventory", () => {
+    it("should increase armour when shield is added to inventory", () => {
         player.addEquipment(new Shield())
         expect(player.armour).toEqual(18)
+    })
+
+    it("should decrease armour when shield is removed from inventory", () => {
+        const shield = new Shield();
+        
+        player.addEquipment(shield)
+        player.removeEquipment(shield)
+        expect(player.armour).toEqual(14)
     })
 })
