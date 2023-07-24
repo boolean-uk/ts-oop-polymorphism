@@ -14,10 +14,9 @@ export abstract class Attack implements IAttack {
 }
 
 export class SwordAttack extends Attack {
-  damage: number;
   constructor() {
     super();
-    this.damage = Math.floor(Math.random() * (8 - 2) + 1);
+    super.damage = Math.floor(Math.random() * (8 - 2) + 1);
   }
 
   getMissMessage() {
@@ -26,10 +25,9 @@ export class SwordAttack extends Attack {
 }
 
 export abstract class SpellAttack extends Attack {
-  damage: number;
   constructor() {
     super();
-    this.damage = Math.floor(Math.random() * (12 - 2) + 1);
+    super.damage = Math.floor(Math.random() * (12 - 2) + 1);
   }
 }
 
@@ -46,10 +44,9 @@ export class IceSpellAttack extends SpellAttack {
 }
 
 export class AxeAttack extends Attack {
-  damage: number;
   constructor() {
     super();
-    this.damage = Math.floor(Math.random() * (10 - 2) + 1);
+    super.damage = Math.floor(Math.random() * (10 - 2) + 1);
   }
 
   getMissMessage() {
