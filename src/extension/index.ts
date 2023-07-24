@@ -1,12 +1,22 @@
+import { SwordAttack } from "../Attack"
 import { Attack } from "./Attack"
 import { Equipment } from "./Equipment"
 
+export interface Creature{
+    _health: number
+    _armour: number
+    _attackType: Attack
+    takeHit(attackType: Attack): string
+    attack(creature: Creature): string 
+}
 
-
- export class Player {
+ export class Player implements Creature {
+     _health = 52
+     _armour = 14
+     _attackType = new SwordAttack()
+ 
      private _inventory:Equipment[] = []
-     private _health = 52 // when this reaches 0, the player dies
-     private _armour = 14// an attack must be >= this to hit the player
+
     
     get health(): number {
         return this._health
@@ -45,6 +55,10 @@ import { Equipment } from "./Equipment"
         this._inventory = this._inventory.filter(element => element.name !== equipment.name)
 
         if(this._inventory.length != inventoryQuantity) this._armour -= equipment.armour
+     }
+     
+     attack(creature: Creature): string {
+        throw new Error("Method not implemented.")
     }
      
      

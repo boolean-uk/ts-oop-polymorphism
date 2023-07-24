@@ -129,4 +129,13 @@ describe("Player tests", () => {
         
         expect(player.armour).toEqual(16)
     })
+
+    it("should decrease health of an enemy when attacked", () => {
+        const goblin = new Goblin();
+        let result
+        do {
+            result = player.attack(goblin)
+        } while (result.includes('missed'))
+        expect(goblin.health).toBeLessThan(10)
+    })
 })
