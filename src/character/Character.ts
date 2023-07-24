@@ -1,15 +1,14 @@
- export class Character {
+export class Character {
     private _name: string
-    private _health: number = 100 
-    private _armour: number = 14 
+    private _health: number = 100
+    private _armour: number = 14
 
     constructor(name: string, health: number, armour: number) {
-        this._name= name
-        this._health= health
-        this._armour= armour
+        this._name = name
+        this._health = health
+        this._armour = armour
 
     }
-
 
     get name(): string {
         return this._name;

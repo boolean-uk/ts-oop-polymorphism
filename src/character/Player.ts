@@ -4,9 +4,9 @@ import {FireSpellAttack} from "../attack/FireSpellAttack";
 import {IceSpellAttack} from "../attack/IceSpellAttack";
 import {AttackType} from "../attack/AttackType";
 import {Weapon} from "../weapon/Weapon";
-import {Character} from "../character/Character";
+import {Character} from "./Character";
 
-export class Player extends Character{
+export class Player extends Character {
 
     private _weapon: Weapon
 
@@ -16,7 +16,7 @@ export class Player extends Character{
     }
 
     attack(target: Character, attack: AttackType): string {
-        if ( this.health <= 0 ) {
+        if (this.health <= 0) {
             return `You are not able to fight`
         }
         let damageDone: number = this.performAttack(target.armour, attack)
@@ -27,7 +27,7 @@ export class Player extends Character{
 
         target.health -= damageDone
 
-        if (target.health <= 0 ) {
+        if (target.health <= 0) {
             return `You defeated ${target.name}`
 
         }
@@ -50,7 +50,6 @@ export class Player extends Character{
         }
     }
 
-    
 
     get weapon(): Weapon {
         return this._weapon;
