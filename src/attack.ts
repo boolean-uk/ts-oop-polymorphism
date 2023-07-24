@@ -17,12 +17,10 @@ const strength = {
 };
 
 export abstract class Attack implements Damaging, Missable {
-  private _damage: number;
-  private _roll: number;
-  constructor(damage: number) {
-    this._damage = damage;
-    this._roll = Math.floor(Math.random() * (20 - 2) + 1);
-  }
+  constructor(
+    private _damage: number,
+    private _roll: number = Math.floor(Math.random() * (20 - 2) + 1)
+  ) {}
 
   get damage(): number {
     return this._damage;
@@ -37,7 +35,8 @@ export abstract class Attack implements Damaging, Missable {
   }
 
   getDamageMessage(attacker: string, defender: string, health: number): string {
-    const damage = `The ${attacker}'s ${camelCaseToWords(this.name)} hit for ${this.damage!} damage!`;
+    const damage = `The ${attacker}'s ${camelCaseToWords(this.name)} hit for ${this
+      .damage!} damage!`;
     const result = health > 0 ? `${defender} now has ${health} health.` : `${defender} died.`;
     return `${damage} ${result}`;
   }

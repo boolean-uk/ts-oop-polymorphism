@@ -9,15 +9,11 @@ import {
 } from "./attack";
 
 abstract class Character {
-  private _health: number;
-  private _armour: number;
-  private _attackType: new () => Attack;
-
-  constructor(health: number, armour: number, attackType: new (damage?: number) => Attack) {
-    this._health = health;
-    this._armour = armour;
-    this._attackType = attackType;
-  }
+  constructor(
+    private _health: number,
+    private _armour: number,
+    private _attackType: new (damage?: number) => Attack
+  ) {}
 
   get health(): number {
     return this._health;
