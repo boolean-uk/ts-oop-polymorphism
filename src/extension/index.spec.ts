@@ -110,6 +110,7 @@ describe("Player tests", () => {
         
         player.addEquipment(shield)
         player.removeEquipment(shield)
+        
         expect(player.armour).toEqual(14)
     })
 })
