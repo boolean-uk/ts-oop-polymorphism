@@ -1,3 +1,3 @@
-enum AttackType{
+export enum AttackType{
     Axe,Sword,FireSpell,IceSpell
 }

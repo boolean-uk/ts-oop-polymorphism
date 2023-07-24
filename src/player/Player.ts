@@ -2,20 +2,25 @@ import {AxeAttack} from "../attack/AxeAttack";
 import {SwordAttack} from "../attack/IceSpellAttack";
 import {FireSpellAttack} from "../attack/FireSpellAttack";
 import {IceSpellAttack} from "../attack/SwordAttack";
+import {AttackType} from "../attack/AttackType";
 
 export class Player {
-    private _health = 52 // when this reaches 0, the player dies
+    private _health = 100 // when this reaches 0, the player dies
     private _armour = 14 // an attack must be >= this to hit the player
 
 
-    attackPlayer(target: Player, attack: AttackType){
-        let damageDone = this.performAttack(target.armour,attack)
+    constructor(armour: number) {
+        this._armour = armour;
+    }
+
+    attackPlayer(target: Player, attack: AttackType) {
+        let damageDone = this.performAttack(target.armour, attack)
 
         target.health -= damageDone
 
     }
 
-    performAttack(armour:number, attack: AttackType): number  {
+    performAttack(armour: number, attack: AttackType): number {
         switch (attack) {
             case AttackType.Axe:
                 return new AxeAttack().hit(armour)
@@ -41,5 +46,9 @@ export class Player {
 
     get health(): number {
         return this._health
+    }
+
+    set health(value: number) {
+        this._health = value
     }
 }
