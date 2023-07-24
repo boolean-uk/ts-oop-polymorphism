@@ -1,54 +1,24 @@
-export class Player {
-    private _health = 52 // when this reaches 0, the player dies
-    private _armour = 14 // an attack must be >= this to hit the player
+import { Character } from './Character'
+import { IceSpell } from './IceSpell'
+import { Equipment } from './Equipment'
 
-    get health(): number {
-        return this._health
+export class Player extends Character{
+    private _equipment: Equipment[] = []
+
+    constructor(health = 52, armour = 14, name = 'player', attackType = new IceSpell()){
+        super(health, armour, name, attackType)
     }
 
-    takeHit(attackType: string): string {
-        let damage: number
-
-        if (attackType === 'sword') {
-            const attackRoll = Math.floor(Math.random() * (20 - 2) + 1) // generate an int between 1 and 20
-
-            if (attackRoll >= this._armour) {
-                damage = Math.floor(Math.random() * (8 - 2) + 1)
-                this._health -= damage
-            } else {
-                return 'The sword attack missed!'
-            }
-        } else if (attackType === 'fire spell') {
-            const attackRoll = Math.floor(Math.random() * (20 - 2) + 1)
-
-            if (attackRoll >= this._armour) {
-                damage = Math.floor(Math.random() * (12 - 2) + 1)
-                this._health -= damage
-            } else {
-                return 'The fire spell attack missed!'
-            }
-        } else if (attackType === 'ice spell') {
-            const attackRoll = Math.floor(Math.random() * (20 - 2) + 1)
-
-            if (attackRoll >= this._armour) {
-                damage = Math.floor(Math.random() * (12 - 2) + 1)
-                this._health -= damage
-            } else {
-                return 'The ice spell attack missed!'
-            }
-        } else if (attackType === 'axe') {
-            const attackRoll = Math.floor(Math.random() * (20 - 2) + 1)
-
-            if (attackRoll >= this._armour) {
-                damage = Math.floor(Math.random() * (10 - 2) + 1)
-                this._health -= damage
-            } else {
-                return 'The axe attack missed!'
-            }
-        } else {
-            return 'Not a valid attack!'
-        }
-
-        return `The attack hit for ${damage} damage! The player now has ${this._health} health.`
+    get equipment(): Equipment[]{
+        return this._equipment
     }
+
+    addEquipment(equipment: Equipment){
+        this._equipment.push(equipment)
+        this.addArmour(equipment.aromour)
+        this.addDamage(equipment.damage)
+    }
+
 }
+
+
