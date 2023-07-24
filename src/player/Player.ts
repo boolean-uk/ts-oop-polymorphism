@@ -5,19 +5,27 @@ import {IceSpellAttack} from "../attack/SwordAttack";
 import {AttackType} from "../attack/AttackType";
 
 export class Player {
-    private _health = 100 // when this reaches 0, the player dies
-    private _armour = 14 // an attack must be >= this to hit the player
 
 
-    constructor(armour: number) {
+    private _name: string
+    private _health: number = 100 // when this reaches 0, the player dies
+    private _armour: number = 14 // an attack must be >= this to hit the player
+    // private _weapon: Weapon
+
+    constructor(name: string, armour: number) {
+        this._name = name
         this._armour = armour;
     }
 
-    attackPlayer(target: Player, attack: AttackType) {
+    attackPlayer(target: Player, attack: AttackType): string {
         let damageDone = this.performAttack(target.armour, attack)
 
-        target.health -= damageDone
+        if (damageDone === 0) {
+            return 'You missed the attack'
+        }
 
+        target.health -= damageDone
+        return `Your attack done ${damageDone} damage to ${target.name}`
     }
 
     performAttack(armour: number, attack: AttackType): number {
@@ -35,6 +43,13 @@ export class Player {
         }
     }
 
+    get name(): string {
+        return this._name;
+    }
+
+    set name(value: string) {
+        this._name = value;
+    }
 
     get armour(): number {
         return this._armour;
@@ -51,4 +66,12 @@ export class Player {
     set health(value: number) {
         this._health = value
     }
+
+    // get weapon(): Weapon {
+    //     return this._weapon;
+    // }
+    //
+    // set weapon(value: Weapon) {
+    //     this._weapon = value;
+    // }
 }
