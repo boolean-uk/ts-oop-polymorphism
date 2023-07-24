@@ -1,5 +1,11 @@
+import { camelCaseToWords } from "./util";
+
 interface Missable {
-  getMissMessage(): string;
+  getMissMessage(opponent: string): string;
+}
+
+interface Damaging {
+  getDamageMessage(attacker: string, defender: string, health: number): string;
 }
 
 const strength = {
@@ -10,7 +16,7 @@ const strength = {
   strongest: () => Math.floor(Math.random() * (14 - 2) + 1),
 };
 
-export abstract class Attack implements Missable {
+export abstract class Attack implements Damaging, Missable {
   private _damage: number;
   private _roll: number;
   constructor(damage: number) {
@@ -26,53 +32,55 @@ export abstract class Attack implements Missable {
     return this._roll;
   }
 
-  abstract getMissMessage(): string;
-}
-
-export class SwordAttack extends Attack {
-  constructor() {
-    super(strength.weak());
+  get name(): string {
+    return this.constructor.name;
   }
 
-  getMissMessage() {
-    return "The sword attack missed!";
+  getDamageMessage(attacker: string, defender: string, health: number): string {
+    const damage = `The ${attacker}'s ${camelCaseToWords(this.name)} hit for ${this.damage!} damage!`;
+    const result = health > 0 ? `${defender} now has ${health} health.` : `${defender} died.`;
+    return `${damage} ${result}`;
   }
-}
 
-abstract class SpellAttack extends Attack {
-  constructor() {
-    super(strength.strong());
+  getMissMessage(opponent: string): string {
+    return `The ${opponent}'s ${camelCaseToWords(this.name)} missed!`;
   }
 }
 
-export class FireSpellAttack extends SpellAttack {
-  getMissMessage() {
-    return "The fire spell attack missed!";
+export abstract class MeleeAttack extends Attack {
+  constructor(damage: number | undefined) {
+    super(damage ? damage : strength.weak());
   }
 }
 
-export class IceSpellAttack extends SpellAttack {
-  getMissMessage() {
-    return "The ice spell attack missed!";
-  }
-}
-
-export class AxeAttack extends Attack {
-  constructor() {
-    super(strength.medium());
-  }
-
-  getMissMessage() {
-    return "The axe attack missed!";
-  }
-}
-
-export class FistAttack extends Attack {
+export class FistAttack extends MeleeAttack {
   constructor() {
     super(strength.weakest());
   }
+}
 
-  getMissMessage() {
-    return "The fist attack missed!";
+export class SwordAttack extends MeleeAttack {}
+
+export class BludgeonAttack extends MeleeAttack {}
+
+export class AxeAttack extends MeleeAttack {
+  constructor() {
+    super(strength.medium());
+  }
+}
+
+export abstract class SpellAttack extends Attack {
+  constructor(damage: number | undefined) {
+    super(damage ? damage : strength.strong());
+  }
+}
+
+export class FireSpellAttack extends SpellAttack {}
+
+export class IceSpellAttack extends SpellAttack {}
+
+export class DeathSpellAttack extends SpellAttack {
+  constructor() {
+    super(strength.strongest());
   }
 }

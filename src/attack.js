@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.FistAttack = exports.AxeAttack = exports.IceSpellAttack = exports.FireSpellAttack = exports.SwordAttack = exports.Attack = void 0;
+exports.DeathSpellAttack = exports.IceSpellAttack = exports.FireSpellAttack = exports.SpellAttack = exports.AxeAttack = exports.BludgeonAttack = exports.SwordAttack = exports.FistAttack = exports.MeleeAttack = exports.Attack = void 0;
+const util_1 = require("./util");
 const strength = {
     weakest: () => Math.floor(Math.random() * (6 - 2) + 1),
     weak: () => Math.floor(Math.random() * (8 - 2) + 1),
@@ -19,49 +20,58 @@ class Attack {
     get roll() {
         return this._roll;
     }
+    get name() {
+        return this.constructor.name;
+    }
+    getDamageMessage(attacker, defender, health) {
+        const damage = `The ${attacker}'s ${(0, util_1.camelCaseToWords)(this.name)} hit for ${this.damage} damage!`;
+        const result = health > 0 ? `${defender} now has ${health} health.` : `${defender} died.`;
+        return `${damage} ${result}`;
+    }
+    getMissMessage(opponent) {
+        return `The ${opponent}'s ${(0, util_1.camelCaseToWords)(this.name)} missed!`;
+    }
 }
 exports.Attack = Attack;
-class SwordAttack extends Attack {
-    constructor() {
-        super(strength.weak());
-    }
-    getMissMessage() {
-        return "The sword attack missed!";
+class MeleeAttack extends Attack {
+    constructor(damage) {
+        super(damage ? damage : strength.weak());
     }
 }
-exports.SwordAttack = SwordAttack;
-class SpellAttack extends Attack {
-    constructor() {
-        super(strength.strong());
-    }
-}
-class FireSpellAttack extends SpellAttack {
-    getMissMessage() {
-        return "The fire spell attack missed!";
-    }
-}
-exports.FireSpellAttack = FireSpellAttack;
-class IceSpellAttack extends SpellAttack {
-    getMissMessage() {
-        return "The ice spell attack missed!";
-    }
-}
-exports.IceSpellAttack = IceSpellAttack;
-class AxeAttack extends Attack {
-    constructor() {
-        super(strength.medium());
-    }
-    getMissMessage() {
-        return "The axe attack missed!";
-    }
-}
-exports.AxeAttack = AxeAttack;
-class FistAttack extends Attack {
+exports.MeleeAttack = MeleeAttack;
+class FistAttack extends MeleeAttack {
     constructor() {
         super(strength.weakest());
     }
-    getMissMessage() {
-        return "The fist attack missed!";
-    }
 }
 exports.FistAttack = FistAttack;
+class SwordAttack extends MeleeAttack {
+}
+exports.SwordAttack = SwordAttack;
+class BludgeonAttack extends MeleeAttack {
+}
+exports.BludgeonAttack = BludgeonAttack;
+class AxeAttack extends MeleeAttack {
+    constructor() {
+        super(strength.medium());
+    }
+}
+exports.AxeAttack = AxeAttack;
+class SpellAttack extends Attack {
+    constructor(damage) {
+        super(damage ? damage : strength.strong());
+    }
+}
+exports.SpellAttack = SpellAttack;
+class FireSpellAttack extends SpellAttack {
+}
+exports.FireSpellAttack = FireSpellAttack;
+class IceSpellAttack extends SpellAttack {
+}
+exports.IceSpellAttack = IceSpellAttack;
+class DeathSpellAttack extends SpellAttack {
+    constructor() {
+        super(strength.strongest());
+    }
+}
+exports.DeathSpellAttack = DeathSpellAttack;

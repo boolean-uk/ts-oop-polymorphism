@@ -1,8 +1,8 @@
-import { Enemy } from "./enemy";
-import { Player } from "./player";
+import { Enemy, Player } from "./character";
 
 export function fight(player: Player, enemy: Enemy): string {
   let playerTurn = true;
+  console.log((playerTurn ? "Player" : Enemy.name) + " attacks!");
   while (player.health > 0 && enemy.health > 0) {
     if (playerTurn) {
       console.log(player.hit(enemy));
