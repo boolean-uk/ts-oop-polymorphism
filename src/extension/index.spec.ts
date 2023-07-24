@@ -68,7 +68,7 @@ describe("Player tests", () => {
         expect(result).toContain('The attack hit')
    
         const extractedNumbers = result.match(/^\d+|\d+\b|\d+(?=\w)/g)!// extract the numbers from the result
-  
+    
         if (extractedNumbers !== null) {
             expect(Number(52) - Number(extractedNumbers[0])).toEqual(Number(extractedNumbers[1]))
         }

@@ -34,7 +34,7 @@ export class Character {
         const attackRoll = Math.floor(Math.random() * (20 - 2) + 1) // generate an int between 1 and 20
         if (attackRoll >= this._armour) {
              const damage = attack.calculateDamage()
-             this._health -= damage
+             this._health = Number(this._health) - Number(damage)
              return `The attack hit for ${damage} damage! The player now has ${this._health} health.`
          } else {
              return `The ${attack.type} attack missed!`
