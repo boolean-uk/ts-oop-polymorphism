@@ -38,10 +38,9 @@ export class Player {
        if (attackRoll >= this._armour) {
         const damage = attack.calculateDamage()
         this._health -= damage
-        return attack.getHitMessage(damage, this._health) }
-
+        return attack.getHitMessage(damage, this._health) } 
         else {
             return attack.getMissMessage()
-       }
+             }
     }
 }
