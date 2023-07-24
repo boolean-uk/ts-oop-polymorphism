@@ -32,9 +32,14 @@ import { Equipment } from "./Equipment"
         return `The attack hit for ${damage} damage! The player now has ${this._health} health.`
      }
 
-     addEquipment(equipment: Equipment) {
+    addEquipment(equipment: Equipment) {
          this._inventory.push(equipment)
          this._armour += equipment.armour
+    }
+
+    removeEquipment(equipment: Equipment) {
+         this._inventory.filter(element => element.name !== equipment.name)
+         this._armour -= equipment.armour
     }
      
      
