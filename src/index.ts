@@ -48,15 +48,15 @@ export class Player {
     }
 
     takeHit(attackType: string): string {
-        const attack = this.attackFromType(attackType)
+        const attack = attackFromType(attackType)
 
-        if (!attack){
+        if (!attack) {
             return 'Not a valid attack!'
         }
 
         const attackRoll = Math.floor(Math.random() * (20 - 2) + 1)
         
-        if (attackRoll >= this._armour){
+        if (attackRoll >= this._armour) {
             const damage = attack.calculateDamage()
             this._health -= damage
             return `The attack hit for ${damage} damage! The player now has ${this._health} health.`
@@ -64,23 +64,19 @@ export class Player {
             return `The ${attack.attackName()} attack missed!`
         }
     }
+}
 
-    attackFromType(attackType: string):  Attack | null{
-        switch(attackType.toLowerCase()){
-            case 'sword':
-                return new SwordAttack()
-                break
-            case 'fire spell':
-                return new FireSpellAttack()
-                break
-            case 'ice spell':
-                return new IceSpellAttack()
-                break
-            case 'axe':
-                return new AxeAttack()
-                break
-            default:
-                return null
-        }
+function attackFromType(attackType: string):  Attack | null{
+    switch(attackType.toLowerCase()) {
+        case 'sword':
+            return new SwordAttack()
+        case 'fire spell':
+            return new FireSpellAttack()
+        case 'ice spell':
+            return new IceSpellAttack()
+        case 'axe':
+            return new AxeAttack()
+        default:
+            return null
     }
 }
