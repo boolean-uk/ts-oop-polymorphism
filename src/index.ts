@@ -5,7 +5,15 @@ export enum AttackType {
     Axe = 'axe',
 }
 
-export class Player {
+interface Attack {
+    calculateMiss(damage: number, attackType: string): string
+
+    calculateDamage(attackType: string): number
+
+    takeHit(attackType: string): string
+}
+
+export class Player implements Attack {
     private _health = 52
     private _armour = 14
 
@@ -17,15 +25,9 @@ export class Player {
         if (!Object.values(AttackType).includes(attackType as AttackType)) {
             return 'Not a valid attack!'
         }
-
         const damage = this.calculateDamage(attackType)
-
-        if (damage === 0) {
-            return 'The ' + attackType + " has missed"
-        }
-
-        this._health -= damage;
-        return `The attack hit for ${damage} damage! The player now has ${this._health} health.`
+        this._health -= damage
+        return this.calculateMiss(damage, attackType)
     }
 
     calculateDamage(attackType: string): number {
@@ -45,5 +47,12 @@ export class Player {
             }
         }
         return damage;
+    }
+
+    calculateMiss(damage: number, attackType: string): string {
+        if (damage === 0) {
+            return 'The ${attackType} attack missed!'
+        }
+        return 'The attack hit for ${damage} damage! The player now has ${this._health} health.'
     }
 }
