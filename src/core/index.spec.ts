@@ -40,7 +40,7 @@ describe("Player tests", () => {
 
         const extractedNumbers = result.match(/^\d+|\d+\b|\d+(?=\w)/g) // extract the numbers from the result
         if (extractedNumbers !== null) {
-            expect(52 - Number(extractedNumbers[0])).toEqual(Number(extractedNumbers[1]))
+            expect(Number(52) - Number(extractedNumbers[0])).toEqual(Number(extractedNumbers[1]))
         }
     })
 
@@ -56,7 +56,7 @@ describe("Player tests", () => {
 
         const extractedNumbers = result.match(/^\d+|\d+\b|\d+(?=\w)/g) // extract the numbers from the result
         if (extractedNumbers !== null) {
-            expect(52 - Number(extractedNumbers[0])).toEqual(Number(extractedNumbers[1]))
+            expect(Number(52) - Number(extractedNumbers[0])).toEqual(Number(extractedNumbers[1]))
         }
     })
 })
