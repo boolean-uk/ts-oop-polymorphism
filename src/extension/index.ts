@@ -58,7 +58,7 @@ export interface Creature{
      }
      
      attack(creature: Creature): string {
-        throw new Error("Method not implemented.")
+       return creature.takeHit(this._attackType)
     }
      
      

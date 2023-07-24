@@ -1,6 +1,7 @@
 import { Player } from "."
 import { SwordAttack, AxeAttack, FireSpellAttack, IceSpellAttack } from "./Attack"
 import { Gloves, Shield } from "./Equipment"
+import { Goblin } from "./Monsters"
 
 describe("Player tests", () => {
     let player: Player
