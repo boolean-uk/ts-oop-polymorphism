@@ -1,10 +1,12 @@
 export interface Attack {
+    name: string;
     attackRoll(): number;
     calculateDamage(): number;
     missedMessage(): string;
 } 
 
 export class SwordAttack implements Attack {
+    name = "sword attack";
     attackRoll(): number {
         return Math.floor(Math.random() * 19) + 2; // generate an int between 2 and 20
     }
@@ -19,6 +21,8 @@ export class SwordAttack implements Attack {
 }
 
 export class FireSpellAttack implements Attack {
+    name = "fire spell attack";
+
     attackRoll(): number {
         return Math.floor(Math.random() * 19) + 2; // generate an int between 2 and 20
     }
@@ -33,6 +37,8 @@ export class FireSpellAttack implements Attack {
 }
 
 export class IceSpellAttack implements Attack {
+    name = "ice spell attack";
+
     attackRoll(): number {
         return Math.floor(Math.random() * 19) + 2; // generate an int between 2 and 20
     }
@@ -47,6 +53,8 @@ export class IceSpellAttack implements Attack {
 }
 
 export class AxeAttack implements Attack {
+    name = "axe attack";
+
     attackRoll(): number {
         return Math.floor(Math.random() * 19) + 2; // generate an int between 2 and 20
     }
@@ -61,6 +69,8 @@ export class AxeAttack implements Attack {
 }
 
 export class Punch implements Attack{
+    name = "punch";
+
     attackRoll(): number {
         return Math.floor(Math.random() * 9) + 1; // generate an int between 1 and 10
     }
@@ -75,6 +85,8 @@ export class Punch implements Attack{
 }
 
 export class Kick implements Attack{
+    name = "kick";
+
     attackRoll(): number {
         return Math.floor(Math.random() * 10) + 2; // generate an int between 2 and 12
     }

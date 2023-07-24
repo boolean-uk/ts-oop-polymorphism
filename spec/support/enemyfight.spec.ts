@@ -14,7 +14,7 @@ describe("Player tests", () => {
 
     it("should damage Knight", () => {
         let result
-        result = enemy.takeHit(player.getPossibleAttacks()[0])
+        result = enemy.takeHit(player.possibleAttacks[0])
 
         expect(enemy.health).toBeLessThan(20)
         expect(result).toContain('The attack hit')
@@ -24,10 +24,10 @@ describe("Player tests", () => {
 
     it("should kill Knight", () => {
         let result
-        result = enemy.takeHit(player.getPossibleAttacks()[0])
+        result = enemy.takeHit(player.possibleAttacks[0])
 
         do {
-            result = enemy.takeHit(player.getPossibleAttacks()[1])
+            result = enemy.takeHit(player.possibleAttacks[1])
         } while (result.includes('hit'))
 
         expect(enemy.health).toBeLessThan(20)
