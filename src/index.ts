@@ -1,4 +1,4 @@
-import { Attack } from "../src/attack"
+// import { Attack } from "../src/attack"
 
 export class Player {
     private _health = 52 // when this reaches 0, the player dies
@@ -8,18 +8,14 @@ export class Player {
         return this._health
     }
 
-    takeHit(attackType : string) {
-        let damage: number
+    takeHit(attack : Attack) : string {
+        let damage = attack.countDamage()
         {
-            const attack = new Attack(attackType)
-            const damage = attack.damageEnemy()
-            console.log(damage)
-            if (damage===0){
-                return 'Not a valid attack!'
-            }
-            else if (this.didAttackMiss()===false){
-                
-                this._health -= damage    
+            if (this.didAttackMiss()===false){
+                console.log("before: " + this._health)
+                this._health -= damage  
+                console.log("damage: " + damage) 
+                console.log("after: " + this._health)
                 return `The attack hit for ${damage} damage! The player now has ${this._health} health.`
             }
             else return 'The ' + attack.attackType + ' attack missed'
