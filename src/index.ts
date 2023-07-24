@@ -1,5 +1,5 @@
-import { Race } from "./races";
-import { Class } from "./classes";
+import { Human, Race } from "./races";
+import { Class, Wizard } from "./classes";
 
 export interface Attack {
     doDamage(): number;
@@ -15,8 +15,8 @@ export class Player {
     constructor(race: Race, playerClass: Class) {
         this._race = race;
         this._class = playerClass
-        this._health = race.getHealth() * playerClass.getHealthMultiplier()
-        this._armour = race.getArmour() * playerClass.getArmourMultiplier()
+        this._health = Math.round(race.getHealth() * playerClass.getHealthMultiplier())
+        this._armour = Math.round(race.getArmour() * playerClass.getArmourMultiplier())
     }
 
     get health(): number {
@@ -35,3 +35,6 @@ export class Player {
         return `The attack hit for ${damage} damage! The player now has ${this._health} health.`
     }
 }
+
+let player = new Player(new Human(), new Wizard())
+console.log(player.health)
