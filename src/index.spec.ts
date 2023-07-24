@@ -92,4 +92,22 @@ describe("Player tests", () => {
         expect(playerTwo.health).toBeLessThan(55)
 
     })
+    it("should defeat enemy his hp <= 0", () => {
+        playerTwo.health = 1
+        const result = playerOne.attackPlayer(playerTwo,AttackType.Axe)
+
+        expect(playerTwo.health).toBeLessThanOrEqual(0)
+        expect(result).toEqual(`You defeated ${playerTwo.name}`)
+
+    })
+    it("will not allow further to fight ", () => {
+        playerOne.health = 0
+        const result = playerOne.attackPlayer(playerTwo,AttackType.Axe)
+
+        expect(playerOne.health).toBeLessThanOrEqual(0)
+        expect(result).toEqual(`You are not able to fight`)
+
+    })
+
+
 })

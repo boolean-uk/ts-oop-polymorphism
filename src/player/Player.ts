@@ -19,6 +19,9 @@ export class Player {
     }
 
     attackPlayer(target: Player, attack: AttackType): string {
+        if ( this.health <= 0 ) {
+            return `You are not able to fight`
+        }
         let damageDone: number = this.performAttack(target.armour, attack)
 
         if (damageDone === 0) {
@@ -26,6 +29,11 @@ export class Player {
         }
 
         target.health -= damageDone
+
+        if (target.health <= 0 ) {
+            return `You defeated ${target.name}`
+
+        }
         return `Your attack done ${damageDone} damage to ${target.name}`
     }
 
