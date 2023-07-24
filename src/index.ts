@@ -3,13 +3,41 @@ import { Sword } from "./sword";
 import { fireSpell } from "./fireSpell";
 import { iceSpell } from "./iceSpell";
 import { Axe } from "./axe";
+import { Shield } from "./shield";
+import { Helmet } from "./helmet";
+import { Armor } from "./armor";
+import { Equipment } from "./equipment";
 
 export class Player {
     private _health = 52 // when this reaches 0, the player dies
     private _armour = 14 // an attack must be >= this to hit the player
+    private _equipment : Array<Equipment> = [new Shield(1), new Helmet(2), new Armor(3)]
 
+constructor() {
+        if (this._equipment && this._equipment.length > 0) {
+          let totalArmour = this._armour
+          for (const equipment of this._equipment) {
+            totalArmour += equipment.armour;
+          }
+          this._armour = totalArmour
+        }
+}
+ 
+      
+      
+    set armour(value: number) {
+        if (value >= 0) {
+          this._armour = value;
+        } else {
+          console.error('Armour value cannot be negative.');
+        }
+      }
     get health(): number {
         return this._health
+    }
+
+    get equipment() : Array<Equipment> {
+        return this._equipment
     }
 
     takeHit(attackType: string): string {
@@ -44,4 +72,6 @@ export class Player {
             return attack.getMissMessage()
        }
     }
+
+  
 }
