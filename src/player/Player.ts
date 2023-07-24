@@ -1,24 +1,25 @@
 import {AxeAttack} from "../attack/AxeAttack";
-import {SwordAttack} from "../attack/IceSpellAttack";
+import {SwordAttack} from "../attack/SwordAttack";
 import {FireSpellAttack} from "../attack/FireSpellAttack";
-import {IceSpellAttack} from "../attack/SwordAttack";
+import {IceSpellAttack} from "../attack/IceSpellAttack";
 import {AttackType} from "../attack/AttackType";
+import {Weapon} from "../weapon/Weapon";
 
 export class Player {
-
 
     private _name: string
     private _health: number = 100 // when this reaches 0, the player dies
     private _armour: number = 14 // an attack must be >= this to hit the player
-    // private _weapon: Weapon
+    private _weapon: Weapon
 
     constructor(name: string, armour: number) {
         this._name = name
         this._armour = armour;
+        this._weapon = {name: 'no-weapon', damage: 0}
     }
 
     attackPlayer(target: Player, attack: AttackType): string {
-        let damageDone = this.performAttack(target.armour, attack)
+        let damageDone: number = this.performAttack(target.armour, attack)
 
         if (damageDone === 0) {
             return 'You missed the attack'
@@ -29,11 +30,12 @@ export class Player {
     }
 
     performAttack(armour: number, attack: AttackType): number {
+
         switch (attack) {
             case AttackType.Axe:
-                return new AxeAttack().hit(armour)
+                return new AxeAttack(this.weapon).hit(armour)
             case AttackType.Sword:
-                return new SwordAttack().hit(armour)
+                return new SwordAttack(this.weapon).hit(armour)
             case AttackType.FireSpell:
                 return new FireSpellAttack().hit(armour)
             case AttackType.IceSpell:
@@ -67,11 +69,11 @@ export class Player {
         this._health = value
     }
 
-    // get weapon(): Weapon {
-    //     return this._weapon;
-    // }
-    //
-    // set weapon(value: Weapon) {
-    //     this._weapon = value;
-    // }
+    get weapon(): Weapon {
+        return this._weapon;
+    }
+
+    set weapon(value: Weapon) {
+        this._weapon = value;
+    }
 }

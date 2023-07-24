@@ -14,6 +14,7 @@ export class Attack {
     constructor() {
         this._damage = 0;
         this._attackRoll = Math.floor(Math.random() * (20 - 2) + 1)
+
     }
 
     get damage(): number {

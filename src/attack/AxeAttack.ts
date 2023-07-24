@@ -1,9 +1,10 @@
 import {Attack} from "./Attack";
+import {Weapon} from "../weapon/Weapon";
 
 export class AxeAttack extends Attack {
 
-    constructor() {
+    constructor(weapon: Weapon) {
         super();
-        this.damage = Math.floor(Math.random() * (10 - 2) + 1)
+        this.damage += Math.floor(Math.random() * (10 - 2) + 1) + weapon.damage
     }
 }

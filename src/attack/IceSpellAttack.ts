@@ -1,9 +1,9 @@
 import {Attack} from "./Attack";
 
-export class SwordAttack extends Attack {
+export class IceSpellAttack extends Attack {
 
     constructor() {
         super();
-        this.damage = Math.floor(Math.random() * (12 - 2) + 1)
+        this.damage = Math.floor(Math.random() * (8 - 2) + 1)
     }
 }
