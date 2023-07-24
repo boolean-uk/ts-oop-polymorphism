@@ -3,7 +3,7 @@ export class Attack {
     private _damage: number
     private _attackRoll: number
 
-    takeHit(armour: number): number {
+    hit(armour: number): number {
         if (this.attackRoll >= armour) {
             return this.damage
         }
