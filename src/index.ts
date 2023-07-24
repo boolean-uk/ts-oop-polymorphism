@@ -18,10 +18,10 @@ export class Player {
         let damage = attack.countDamage()
         {
             if (this.didAttackMiss()===false){
-                console.log("before: " + this._health)
-                this._health -= damage  
-                console.log("damage: " + damage) 
-                console.log("after: " + this._health)
+                this._health -= damage
+                if (this.isDead()){
+                    return 'you Died'
+                }  
                 return `The attack hit for ${damage} damage! The player now has ${this._health} health.`
             }
             else return 'The ' + attack.attackType + ' attack missed'
@@ -43,5 +43,9 @@ export class Player {
             countArmour += itemArmor
         }
         return countArmour
+    }
+
+    isDead(){
+       return this._health <= 0 
     }
 }
