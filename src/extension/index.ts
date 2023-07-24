@@ -38,8 +38,11 @@ import { Equipment } from "./Equipment"
     }
 
     removeEquipment(equipment: Equipment) {
-         this._inventory.filter(element => element.name !== equipment.name)
-         this._armour -= equipment.armour
+        const inventoryQuantity = this._inventory.length;
+        
+        this._inventory = this._inventory.filter(element => element.name !== equipment.name)
+
+        if(this._inventory.length != inventoryQuantity) this._armour -= equipment.armour
     }
      
      
