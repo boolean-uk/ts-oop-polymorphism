@@ -17,7 +17,7 @@ import {Character} from "./Character";
         const bossDamage = this._damage
         target.health -= Math.max(bossDamage-target.armour,0)
         if (target.health<=0) {
-            return `${this.name} attacks ${target.name} and deals ${bossDamage} damage. ${target.name} has been defeated`
+            return `${this.name} attacks ${target.name} and deals ${bossDamage} damage. ${target.name} Has been defeated`
         }
         return `${this.name} attacks ${target.name} and deals ${bossDamage} damage. ${target.name} has ${target.health} health remaining`
 
