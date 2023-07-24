@@ -1,6 +1,6 @@
 import { Player } from "."
 import { SwordAttack, AxeAttack, FireSpellAttack, IceSpellAttack } from "./Attack"
-import { Shield } from "./Equipment"
+import { Gloves, Shield } from "./Equipment"
 
 describe("Player tests", () => {
     let player: Player
@@ -110,7 +110,17 @@ describe("Player tests", () => {
         
         player.addEquipment(shield)
         player.removeEquipment(shield)
-        
+
         expect(player.armour).toEqual(14)
+    })
+
+    it("should not decrease armour when we pass to function item which is not in inventory", () => {
+        const shield = new Shield();
+        const gloves = new Gloves();
+        
+        player.addEquipment(gloves);
+        player.removeEquipment(shield)
+        
+        expect(player.armour).toEqual(16)
     })
 })
