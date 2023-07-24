@@ -1,5 +1,4 @@
 import { AttackType } from "./AttackType"
-import { Sword } from "./Sword"
 
 export class Player {
     private _health = 52 // when this reaches 0, the player dies

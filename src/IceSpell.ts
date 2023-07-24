@@ -1,6 +1,6 @@
 import { AttackType } from "./AttackType"
 
-class FireSpell implements AttackType {
+export class IceSpell implements AttackType {
     attack(armour: number): number {
         const attackRoll = Math.floor(Math.random() * (20 - 2) + 1)
 
