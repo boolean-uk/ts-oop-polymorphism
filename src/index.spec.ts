@@ -1,4 +1,7 @@
-import { Player, SwordAttack } from ".";
+import { SwordAttack } from "./attack";
+import { Goblin, Ogre } from "./enemy";
+import { fight } from "./fight";
+import { Player } from "./player";
 
 describe("Player tests", () => {
   let player: Player;
@@ -27,5 +30,13 @@ describe("Player tests", () => {
     if (extractedNumbers !== null) {
       expect(52 - Number(extractedNumbers[0])).toEqual(Number(extractedNumbers[1]));
     }
+  });
+
+  it("should return fight result: Player wins!", () => {
+    expect(fight(new Player(), new Goblin())).toEqual("Player wins!");
+  });
+
+  it("should return fight result: Ogre wins!", () => {
+    expect(fight(new Player(), new Ogre())).toEqual("Ogre wins!");
   });
 });
