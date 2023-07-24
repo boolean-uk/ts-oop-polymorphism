@@ -139,4 +139,15 @@ describe("Player tests", () => {
         } while (result.includes('missed'))
         expect(goblin.health).toBeLessThan(10)
     })
+
+    it("should die when health <= 0", () => {
+        const goblin = new Goblin();
+        let result
+
+        do {
+            result = player.attack(goblin)
+        } while (!result.includes('died'))
+
+        expect(goblin.isAlive).toBeFalsy();
+    })
 })
