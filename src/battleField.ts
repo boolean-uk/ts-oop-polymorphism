@@ -1,10 +1,10 @@
 import { Player } from ".";
 import { monster } from "../src/monster";
-// import { inventory } from "../src/inventory";
-import * as readline from 'readline';
-import { Sword } from "./sword";
+
 
     const player = new Player()
+
+    const prompt = require('prompt-sync')();
 
     const rl = require('readline').createInterface({
         input: process.stdin,
@@ -16,6 +16,7 @@ import { Sword } from "./sword";
         while(doYouWantToFight === 'y'){
         
         console.log('Wild monster appeared... ')
+        console.log('Your current weapon: ' + player.weapon.attackType())
         const monsterAttack = new monster()
     
         do{
@@ -25,33 +26,11 @@ import { Sword } from "./sword";
             
             if(player.isDead()) console.log("You died")
             else {
-                console.log('Monster defeated with weapon: ' + monsterAttack.weaponGetter)
-                rl.question('Do you want to take monster weapon? [y/n] ', (answer: string) => {
-                    
-                switch(answer.toLowerCase()) {
-                case 'y':
-                    player.setWeapon(monsterAttack.weaponGetter)
-                    break;
-                case 'n':
-                    break;
-                default:
-                    console.log('Invalid answer!');
-                }
-                rl.close();
-                })            
-
+                console.log('Monster defeated with weapon: ' + monsterAttack.weaponGetter.attackType())
+                const answer = prompt('Do you want to take monster weapon? [y/n] ');
+                    if (answer.toLocaleLowerCase()==='y'){
+                        player.setWeapon(monsterAttack.weaponGetter)
+                    }                       
             }
-            rl.question('Do you want to fight? [y/n] ', (answer: string) => {
-                switch(answer.toLowerCase()) {
-                case 'y':
-                    doYouWantToFight = 'y'
-                    break;
-                case 'n':
-                    doYouWantToFight = 'n'
-                    break;
-                default:
-                    console.log('Invalid answer!');
-                }
-                    rl.close();
-                });
+            doYouWantToFight = prompt('Do you want to continue? [y/n] ')
         }
