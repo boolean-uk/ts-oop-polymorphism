@@ -1,22 +1,20 @@
 import { Player } from "."
+import { Sword } from "./Sword"
 
 describe("Player tests", () => {
     let player: Player
+    let sword: Sword
 
     beforeEach(() => { // Before each "it" test, start with a new Player instance
         player = new Player()
-    })
-
-    it("should not use invalid attacks", () => {
-        const result = player.takeHit('banana')
-        expect(result).toEqual('Not a valid attack!')
+        sword = new Sword()
     })
 
     it("should reduce the players health on successful hits", () => {
         let result
 
         do {
-            result = player.takeHit('sword')
+            result = player.takeHit(sword)
         } while (result.includes('missed'))
 
         expect(player.health).toBeLessThan(52)
