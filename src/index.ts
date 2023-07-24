@@ -1,4 +1,5 @@
 import { Race } from "./races";
+import { Class } from "./classes";
 
 export interface Attack {
     doDamage(): number;
@@ -10,10 +11,12 @@ export class Player {
     private _health // when this reaches 0, the player dies
     private _armour // an attack must be >= this to hit the player
     private _race
-    constructor(race: Race) {
+    private _class
+    constructor(race: Race, playerClass: Class) {
         this._race = race;
-        this._health = race.getHealth()
-        this._armour = race.getArmour()
+        this._class = playerClass
+        this._health = race.getHealth() * playerClass.getHealthMultiplier()
+        this._armour = race.getArmour() * playerClass.getArmourMultiplier()
     }
 
     get health(): number {
