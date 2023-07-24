@@ -1,8 +1,10 @@
 import { Attack } from "./Attack"
+import { Equipment } from "./Equipment"
 
 
 
  export class Player {
+
 
 
      private _inventory:Equipment[] = []
@@ -34,6 +36,11 @@ import { Attack } from "./Attack"
 
         return `The attack hit for ${damage} damage! The player now has ${this._health} health.`
      }
+
+     addEquipment(equipment: Equipment) {
+         this._inventory.push(equipment)
+         this._armour += equipment.armour
+    }
      
      
 }

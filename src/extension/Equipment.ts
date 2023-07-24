@@ -17,3 +17,10 @@ class Shield implements Equipment{
     name = "Shield"
     armour = 4;
 }
+
+export {
+    Equipment,
+    Gloves,
+    Helmet,
+    Shield
+}
