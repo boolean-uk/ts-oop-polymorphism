@@ -1,54 +1,95 @@
+interface Attack {
+    attackRoll(): number;
+    calculateDamage(): number;
+    missedMessage(): string;
+} 
+
 export class Player {
     private _health = 52 // when this reaches 0, the player dies
     private _armour = 14 // an attack must be >= this to hit the player
+    private attackList: { [key: string]: Attack }  ={'sword': new SwordAttack(), 'fire spell': new FireSpellAttack(), 'ice spell': new IceSpellAttack(), 'axe': new AxeAttack()};
 
     get health(): number {
         return this._health
     }
 
     takeHit(attackType: string): string {
-        let damage: number
+        if (this.isValidAttackType(attackType)){
+            const attack = this.attackList[attackType];
 
-        if (attackType === 'sword') {
-            const attackRoll = Math.floor(Math.random() * (20 - 2) + 1) // generate an int between 1 and 20
-
-            if (attackRoll >= this._armour) {
-                damage = Math.floor(Math.random() * (8 - 2) + 1)
-                this._health -= damage
+            if (attack.attackRoll() >= this._armour) {
+                const damage = attack.calculateDamage();
+                this._health -= damage;
+                return `The attack hit for ${damage} damage! The player now has ${this._health} health.`;
             } else {
-                return 'The sword attack missed!'
+                return attack.missedMessage();
             }
-        } else if (attackType === 'fire spell') {
-            const attackRoll = Math.floor(Math.random() * (20 - 2) + 1)
+    }
+    return 'Not a valid attack!'
+    }
 
-            if (attackRoll >= this._armour) {
-                damage = Math.floor(Math.random() * (12 - 2) + 1)
-                this._health -= damage
-            } else {
-                return 'The fire spell attack missed!'
-            }
-        } else if (attackType === 'ice spell') {
-            const attackRoll = Math.floor(Math.random() * (20 - 2) + 1)
+    private isValidAttackType(attackType: string): boolean {
+        return attackType in this.attackList;
+      }
+}
 
-            if (attackRoll >= this._armour) {
-                damage = Math.floor(Math.random() * (12 - 2) + 1)
-                this._health -= damage
-            } else {
-                return 'The ice spell attack missed!'
-            }
-        } else if (attackType === 'axe') {
-            const attackRoll = Math.floor(Math.random() * (20 - 2) + 1)
+class SwordAttack implements Attack {
+    attackRoll(): number {
+        return Math.floor(Math.random() * 19) + 2; // generate an int between 2 and 20
+    }
 
-            if (attackRoll >= this._armour) {
-                damage = Math.floor(Math.random() * (10 - 2) + 1)
-                this._health -= damage
-            } else {
-                return 'The axe attack missed!'
-            }
-        } else {
-            return 'Not a valid attack!'
-        }
+    calculateDamage(): number {
+        return Math.floor(Math.random() * 7) + 2; // generate an int between 2 and 8
+    }
 
-        return `The attack hit for ${damage} damage! The player now has ${this._health} health.`
+    missedMessage(): string {
+        return 'The sword attack missed!';
     }
 }
+
+class FireSpellAttack implements Attack {
+    attackRoll(): number {
+        return Math.floor(Math.random() * 19) + 2; // generate an int between 2 and 20
+    }
+
+    calculateDamage(): number {
+        return Math.floor(Math.random() * 11) + 2; // generate an int between 2 and 12
+    }
+
+    missedMessage(): string {
+        return 'The fire spell attack missed!';
+    }
+}
+
+class IceSpellAttack implements Attack {
+    attackRoll(): number {
+        return Math.floor(Math.random() * 19) + 2; // generate an int between 2 and 20
+    }
+
+    calculateDamage(): number {
+        return Math.floor(Math.random() * 11) + 2; // generate an int between 2 and 12
+    }
+
+    missedMessage(): string {
+        return 'The ice spell attack missed!';
+    }
+}
+
+class AxeAttack implements Attack {
+    attackRoll(): number {
+        return Math.floor(Math.random() * 19) + 2; // generate an int between 2 and 20
+    }
+
+    calculateDamage(): number {
+        return Math.floor(Math.random() * 9) + 2; // generate an int between 2 and 10
+    }
+
+    missedMessage(): string {
+        return 'The axe attack missed!';
+    }
+}
+
+
+
+
+

@@ -1,4 +1,4 @@
-import { Player } from "."
+import { Player } from "../../src"
 
 describe("Player tests", () => {
     let player: Player
