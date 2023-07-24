@@ -83,4 +83,13 @@ describe("Player tests", () => {
         expect(playerTwo.health).toEqual(MAX_HP)
         expect(result).toMatch(MISSED_ATTACK_MESSAGE)
     })
+
+    it("should deal 45 more damage with weapon", () => {
+        playerOne.weapon = {name: "B.F Sword", damage: 45}
+
+        playerOne.attackPlayer(playerTwo,AttackType.Axe)
+
+        expect(playerTwo.health).toBeLessThan(55)
+
+    })
 })
