@@ -1,11 +1,14 @@
 import { Player } from "."
 import { SwordAttack, AxeAttack, FireSpellAttack, IceSpellAttack } from "./Attack"
+import { Gloves, Shield } from "./Equipment"
+import { Goblin } from "./Monsters"
+import { humanRace } from "./Race"
 
 describe("Player tests", () => {
     let player: Player
 
     beforeEach(() => { // Before each "it" test, start with a new Player instance
-        player = new Player()
+        player = new Player(humanRace)
     })
 
     it("should reduce the players health on successful sword hits", () => {
@@ -97,5 +100,55 @@ describe("Player tests", () => {
 
         expect(result).toContain('attack missed')
 
+    })
+
+    it("should increase armour when shield is added to inventory", () => {
+        player.addEquipment(new Shield())
+        expect(player.armour).toEqual(18)
+    })
+
+    it("should increase armour only once when shield is added again to inventory", () => {
+        player.addEquipment(new Shield())
+        player.addEquipment(new Shield())
+        expect(player.armour).toEqual(18)
+    })
+
+    it("should decrease armour when shield is removed from inventory", () => {
+        const shield = new Shield();
+        
+        player.addEquipment(shield)
+        player.removeEquipment(shield)
+
+        expect(player.armour).toEqual(14)
+    })
+
+    it("should not decrease armour when we pass to function item which is not in inventory", () => {
+        const shield = new Shield();
+        const gloves = new Gloves();
+        
+        player.addEquipment(gloves);
+        player.removeEquipment(shield)
+        
+        expect(player.armour).toEqual(16)
+    })
+
+    it("should decrease health of an enemy when attacked", () => {
+        const goblin = new Goblin();
+        let result
+        do {
+            result = player.attack(goblin)
+        } while (result.includes('missed'))
+        expect(goblin.health).toBeLessThan(10)
+    })
+
+    it("should die when health <= 0", () => {
+        const goblin = new Goblin();
+        let result
+
+        do {
+            result = player.attack(goblin)
+        } while (!result.includes('died'))
+
+        expect(goblin.isAlive()).toBeFalsy();
     })
 })
