@@ -1,6 +1,5 @@
 import { Weapon, Sword, FireSpell, IceSpell, Axe } from "./Weapon"
 import { Entity } from "./Entity";
-const prompt = require('prompt-sync')()
 
 export class Player extends Entity {
     _health = 52 // when this reaches 0, the player dies
