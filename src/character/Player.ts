@@ -4,21 +4,18 @@ import {FireSpellAttack} from "../attack/FireSpellAttack";
 import {IceSpellAttack} from "../attack/IceSpellAttack";
 import {AttackType} from "../attack/AttackType";
 import {Weapon} from "../weapon/Weapon";
+import {Character} from "../character/Character";
 
-export class Player {
+export class Player extends Character{
 
-    private _name: string
-    private _health: number = 100 // when this reaches 0, the player dies
-    private _armour: number = 14 // an attack must be >= this to hit the player
     private _weapon: Weapon
 
-    constructor(name: string, armour: number) {
-        this._name = name
-        this._armour = armour;
+    constructor(name: string, health: number, armour: number) {
+        super(name, health, armour)
         this._weapon = {name: 'no-weapon', damage: 0}
     }
 
-    attackPlayer(target: Player, attack: AttackType): string {
+    attack(target: Character, attack: AttackType): string {
         if ( this.health <= 0 ) {
             return `You are not able to fight`
         }
@@ -53,29 +50,7 @@ export class Player {
         }
     }
 
-    get name(): string {
-        return this._name;
-    }
-
-    set name(value: string) {
-        this._name = value;
-    }
-
-    get armour(): number {
-        return this._armour;
-    }
-
-    set armour(value: number) {
-        this._armour = value;
-    }
-
-    get health(): number {
-        return this._health
-    }
-
-    set health(value: number) {
-        this._health = value
-    }
+    
 
     get weapon(): Weapon {
         return this._weapon;
