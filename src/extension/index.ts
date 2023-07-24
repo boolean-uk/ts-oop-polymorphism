@@ -1,6 +1,7 @@
 import { SwordAttack } from "../Attack"
 import { Attack } from "./Attack"
 import { Equipment } from "./Equipment"
+import { Race } from "./Race"
 
 export interface Creature{
     _alive: boolean
@@ -13,13 +14,16 @@ export interface Creature{
 }
 
  export class Player implements Creature {
-     _alive = true;
-     _health = 52
-     _armour = 14
+    _alive = true;
+     _health = 52 * this.race.healthMultiplayer
+     _armour = 14 * this.race.armourMultiplayer
      _attackType = new SwordAttack()
  
      private _inventory:Equipment[] = []
 
+     constructor(private race: Race){
+
+     }
     
     get health(): number {
         return this._health

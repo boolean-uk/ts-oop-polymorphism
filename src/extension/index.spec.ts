@@ -2,12 +2,13 @@ import { Player } from "."
 import { SwordAttack, AxeAttack, FireSpellAttack, IceSpellAttack } from "./Attack"
 import { Gloves, Shield } from "./Equipment"
 import { Goblin } from "./Monsters"
+import { humanRace } from "./Race"
 
 describe("Player tests", () => {
     let player: Player
 
     beforeEach(() => { // Before each "it" test, start with a new Player instance
-        player = new Player()
+        player = new Player(humanRace)
     })
 
     it("should reduce the players health on successful sword hits", () => {
