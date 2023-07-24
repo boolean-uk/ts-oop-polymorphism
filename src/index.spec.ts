@@ -1,10 +1,24 @@
 import { Player } from "."
+import { Shield } from "./shield"
+import { Helmet } from "./helmet"
+import { Armor } from "./armor"
 
 describe("Player tests", () => {
     let player: Player
 
     beforeEach(() => { // Before each "it" test, start with a new Player instance
         player = new Player()
+    })
+
+    it("should apply health bonuses from equipment", () => {
+        const shield = new Shield()
+        const helmet = new Helmet()
+        const armor = new Armor()
+
+        player = new Player([shield, helmet, armor])
+
+        // Player health should now be 52 + 5 + 10 + 15 = 82
+        expect(player.health).toEqual(82)
     })
 
     it("should not use invalid attacks", () => {

@@ -5,3 +5,8 @@ export interface Attack{
     getMissMessage(): string
     getHitMessage(damage: number, health: number): string
 }
+
+export interface Equipment {
+    name: string
+    applyHealthBonus(baseHealth: number): number
+}
