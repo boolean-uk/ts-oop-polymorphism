@@ -1,4 +1,6 @@
-import { Player } from "."
+import { Player } from "../../src/coreCriteria"
+import { SwordAttack } from "../../src/attacks"
+
 
 describe("Player tests", () => {
     let player: Player
