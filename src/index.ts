@@ -1,3 +1,9 @@
+import { Attack } from "./Attack"
+import { AxeAttack } from "./AxeAttack"
+import { FireSpellAttack } from "./FireSpellAttack"
+import { IceSpellAttack } from "./IceSpellAttack"
+import { SwordAttack } from "./SwordAttack"
+
 export class Player {
     private _health = 52 // when this reaches 0, the player dies
     private _armour = 14 // an attack must be >= this to hit the player
@@ -8,45 +14,30 @@ export class Player {
 
     takeHit(attackType: string): string {
         let damage: number
+        let newAttack: Attack
 
-        if (attackType === 'sword') {
-            const attackRoll = Math.floor(Math.random() * (20 - 2) + 1) // generate an int between 1 and 20
-
-            if (attackRoll >= this._armour) {
-                damage = Math.floor(Math.random() * (8 - 2) + 1)
-                this._health -= damage
-            } else {
-                return 'The sword attack missed!'
-            }
-        } else if (attackType === 'fire spell') {
-            const attackRoll = Math.floor(Math.random() * (20 - 2) + 1)
-
-            if (attackRoll >= this._armour) {
-                damage = Math.floor(Math.random() * (12 - 2) + 1)
-                this._health -= damage
-            } else {
-                return 'The fire spell attack missed!'
-            }
-        } else if (attackType === 'ice spell') {
-            const attackRoll = Math.floor(Math.random() * (20 - 2) + 1)
-
-            if (attackRoll >= this._armour) {
-                damage = Math.floor(Math.random() * (12 - 2) + 1)
-                this._health -= damage
-            } else {
-                return 'The ice spell attack missed!'
-            }
-        } else if (attackType === 'axe') {
-            const attackRoll = Math.floor(Math.random() * (20 - 2) + 1)
-
-            if (attackRoll >= this._armour) {
-                damage = Math.floor(Math.random() * (10 - 2) + 1)
-                this._health -= damage
-            } else {
-                return 'The axe attack missed!'
-            }
+        switch (attackType){
+            case 'sword':
+                newAttack = new SwordAttack()
+                break;
+            case 'fire spell':
+                newAttack = new FireSpellAttack()
+                break;
+            case 'ice spell':
+                newAttack = new IceSpellAttack()
+                break;
+            case 'axe':
+                newAttack = new AxeAttack()
+                break;
+            default:
+                return 'Not a valid attack!'
+        }
+    
+        if (newAttack.attackRoll() >= this._armour) {
+            damage = newAttack.damage(newAttack.damageNumber)
+            this._health -= damage
         } else {
-            return 'Not a valid attack!'
+            return 'The ' + attackType + ' attack missed!'
         }
 
         return `The attack hit for ${damage} damage! The player now has ${this._health} health.`

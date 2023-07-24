@@ -12,6 +12,19 @@ describe("Player tests", () => {
         expect(result).toEqual('Not a valid attack!')
     })
 
+    it("should return correct type in missed message", () => {
+        let result
+        do {
+            result = player.takeHit('sword')
+        } while (!result.includes('missed'))
+        expect(result).toEqual('The sword attack missed!')
+
+        do {
+            result = player.takeHit('ice spell')
+        } while (!result.includes('missed'))
+        expect(result).toEqual('The ice spell attack missed!')
+    })
+
     it("should reduce the players health on successful hits", () => {
         let result
 
