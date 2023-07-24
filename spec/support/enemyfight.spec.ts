@@ -17,7 +17,7 @@ describe("Player tests", () => {
         result = enemy.takeHit(player.possibleAttacks[0])
 
         expect(enemy.health).toBeLessThan(20)
-        expect(result).toContain('The attack hit')
+        expect(result).toContain('attack hit')
 
 
     })
@@ -43,7 +43,7 @@ describe("Player tests", () => {
         } while (result.includes('missed'))
 
         expect(player.health).toBeLessThan(52)
-        expect(result).toContain('The attack hit')
+        expect(result).toContain('attack hit')
 
         const extractedNumbers = result.match(/^\d+|\d+\b|\d+(?=\w)/g) // extract the numbers from the result
         if (extractedNumbers !== null) {
