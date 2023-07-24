@@ -33,8 +33,10 @@ import { Equipment } from "./Equipment"
      }
 
     addEquipment(equipment: Equipment) {
-         this._inventory.push(equipment)
-         this._armour += equipment.armour
+        if(!this._inventory.some((element) => element.name === equipment.name)){
+            this._inventory.push(equipment)
+            this._armour += equipment.armour
+        }
     }
 
     removeEquipment(equipment: Equipment) {
