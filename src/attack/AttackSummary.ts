@@ -4,6 +4,9 @@ type AttackSummary = {
     playerHealth: number
 } | {
     status: "miss"
+} | {
+    status: "fatal",
+    experience: number
 }
 
 export default AttackSummary

@@ -1,5 +1,5 @@
 import { AttackType } from "@attack/AttackType";
-import Player from "@player/Player";
+import Player from "src/character/Player";
 
 const at = AttackType.Axe;
 const p = new Player(25, 16);

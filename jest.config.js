@@ -5,6 +5,6 @@ module.exports = {
   moduleNameMapper: {
     '^@attack/(.*)$': '<rootDir>/src/attack/$1',
     '^@dice/(.*)$': '<rootDir>/src/dice/$1',
-    '^@player/(.*)$': '<rootDir>/src/player/$1',
+    '^@character/(.*)$': '<rootDir>/src/character/$1'
   }
-};
+}

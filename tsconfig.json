@@ -1,21 +1,18 @@
 {
-    "compilerOptions": {
-        "target": "es6",
-        "module": "commonjs",
-        "lib": ["es2017", "es7", "es6", "dom"],
-        "declaration": true,
-        "outDir": "dist",
-        "esModuleInterop": true,
-        "strict": true,
-        "baseUrl": ".",
-        "paths": {
-            "@attack/*": ["src/attack/*"],
-            "@dice/*": ["src/dice/*"],
-            "@player/*": ["src/player/*"]
-        }
-    },
-    "exclude": [
-        "node_modules",
-        "dist"
-    ]
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "lib": ["es2017", "es7", "es6", "dom"],
+    "declaration": true,
+    "outDir": "dist",
+    "esModuleInterop": true,
+    "strict": true,
+    "baseUrl": ".",
+    "paths": {
+      "@attack/*": ["src/attack/*"],
+      "@dice/*": ["src/dice/*"],
+      "@character/*": ["src/character/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist"]
 }
