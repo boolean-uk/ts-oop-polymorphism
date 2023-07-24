@@ -98,4 +98,9 @@ describe("Player tests", () => {
         expect(result).toContain('attack missed')
 
     })
+
+    it("should icrease armour when shield is added to inventory", () => {
+        player.addEquipment(new Shield())
+        expect(player.armour).toEqual(18)
+    })
 })
