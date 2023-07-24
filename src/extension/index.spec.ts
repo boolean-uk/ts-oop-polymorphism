@@ -105,6 +105,12 @@ describe("Player tests", () => {
         expect(player.armour).toEqual(18)
     })
 
+    it("should increase armour only once when shield is added again to inventory", () => {
+        player.addEquipment(new Shield())
+        player.addEquipment(new Shield())
+        expect(player.armour).toEqual(18)
+    })
+
     it("should decrease armour when shield is removed from inventory", () => {
         const shield = new Shield();
         
