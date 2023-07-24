@@ -3,6 +3,7 @@ import { AxeAttack } from "../Attack";
 import { Attack } from "./Attack";
 
 export class Goblin implements Creature {
+    _alive = true
     _health = 10
     _armour= 14
     _attackType = new AxeAttack();
@@ -23,11 +24,19 @@ export class Goblin implements Creature {
         if (attackRoll >= this._armour) {
             damage = Math.floor(Math.random() * (attackType.maxHit - attackType.minHit) + 1)
             this._health -= damage
+            if(this._health <= 0) {
+                this._alive = false;
+                return 'Goblin died!'
+            }
         } else {
             return `The ${attackType.name} attack missed!`
         }
     
 
         return `The attack hit for ${damage} damage! Goblin now has ${this._health} health.`
+     }
+
+     isAlive(): boolean {
+        return this._alive;
      }
 }

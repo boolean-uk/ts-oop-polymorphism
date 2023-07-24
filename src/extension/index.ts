@@ -3,14 +3,17 @@ import { Attack } from "./Attack"
 import { Equipment } from "./Equipment"
 
 export interface Creature{
+    _alive: boolean
     _health: number
     _armour: number
     _attackType: Attack
     takeHit(attackType: Attack): string
-    attack(creature: Creature): string 
+    attack(creature: Creature): string
+    isAlive(): boolean
 }
 
  export class Player implements Creature {
+     _alive = true;
      _health = 52
      _armour = 14
      _attackType = new SwordAttack()
@@ -34,6 +37,10 @@ export interface Creature{
         if (attackRoll >= this._armour) {
             damage = Math.floor(Math.random() * (attackType.maxHit - attackType.minHit) + 1)
             this._health -= damage
+            if(this._health <= 0) {
+                this._alive = false;
+                return 'Player died!'
+            }
         } else {
             return `The ${attackType.name} attack missed!`
         }
@@ -60,6 +67,10 @@ export interface Creature{
      attack(creature: Creature): string {
        return creature.takeHit(this._attackType)
     }
+
+    isAlive(): boolean {
+        return this._alive;
+     }
      
      
 }

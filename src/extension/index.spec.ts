@@ -148,6 +148,6 @@ describe("Player tests", () => {
             result = player.attack(goblin)
         } while (!result.includes('died'))
 
-        expect(goblin.isAlive).toBeFalsy();
+        expect(goblin.isAlive()).toBeFalsy();
     })
 })
