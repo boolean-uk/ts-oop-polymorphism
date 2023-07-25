@@ -2,12 +2,18 @@ import { Player } from './Player';
 import { Attack } from "./Attack"
 import { IceSpellAttack } from "./IceSpellAttack"
 import { SwordAttack } from "./SwordAttack"
+import { RPG } from './';
+import * as readline from 'readline';
 
 describe("Player tests", () => {
     let player: Player
 
+    let originalCreateInterface: typeof readline.createInterface;
+    let mockCreateInterface: jasmine.Spy;
+
     beforeEach(() => { // Before each "it" test, start with a new Player instance
-        player = new Player()
+       player = new Player()
+       
     })
 
     it("should not use invalid attacks", () => {
@@ -37,7 +43,7 @@ describe("Player tests", () => {
             result = player.takeHit(new SwordAttack())
         } while (result.includes('missed'))
 
-        expect(player.health).toBeLessThan(52)
+        expect(player.getHealth()).toBeLessThan(52)
         expect(result).toContain('The attack hit')
 
         const extractedNumbers = result.match(/^\d+|\d+\b|\d+(?=\w)/g) // extract the numbers from the result
@@ -45,4 +51,8 @@ describe("Player tests", () => {
             expect(52 - Number(extractedNumbers[0])).toEqual(Number(extractedNumbers[1]))
         }
     })
+    // it("should play RPG", () => {
+    //     let game=new RPG();
+    //    console.log("RPG")
+    // })
 })

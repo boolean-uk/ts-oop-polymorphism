@@ -3,7 +3,7 @@ import { AxeAttack } from "./AxeAttack"
 import { FireSpellAttack } from "./FireSpellAttack"
 import { IceSpellAttack } from "./IceSpellAttack"
 import { SwordAttack } from "./SwordAttack"
-import readline from 'readline';
+import * as readline from 'readline';
 
 export class Player {
     private name ='player'
@@ -24,12 +24,15 @@ export class Player {
     setName(name:string):void{
         this.name=name
     }
-    SpecificCombatEncounters(player:Player,attackType:string){
+    getName():string{
+       return this.name
+    }
+    SpecificCombatEncounters(player:Player,attackType:string):string{
         if(this.enemies.includes(player)){
-            player.takeHit(this.createNewAttack(attackType))
-            this.takeHit(this.createNewAttack(attackType))
+            return 'You: '+this.getName()+" "+this.takeHit(this.createNewAttack(attackType))
+            +' Enemy: '+ player.takeHit(this.createNewAttack(attackType))
         }else{
-            console.log("Hello "+player.name)
+            return "Hello "+player.name
         }
     }
     addAttackToEquipment(thing:string){
@@ -51,8 +54,11 @@ export class Player {
       getPlayerList(): Player[] {
         return this.enemies;
       }
-    get health(): number {
+    getHealth(): number {
         return this._health
+    }
+    gatArmour():number {
+        return this._armour
     }
 
     takeHit(newAttack: Attack): string {
@@ -88,48 +94,25 @@ export class Player {
                 return new Attack()
         }
     }
-    CharacterBuilder():void{
-        const rl = readline.createInterface({
-            input: process.stdin,
-            output: process.stdout,
-          });
-        console.log("Character Builder:")
-        console.log("Choose your character Class:")
-        console.log("1 - Royalty")
-        console.log("2 - Nobility")
-        console.log("3 - Peasant")
-        rl.question('Enter a number (1-3): ', (num) => {
-            console.log(`You chose character class ${num}+!`);
+   
+    CharacterBuilder(num:string,numb:string,descript:string):void{
+        
             switch(num){
                 case '1': this.character.class=Class.Royalty
                 case '2': this.character.class=Class.Nobility
                 case '3': this.character.class=Class.Peasant
             }
-            //rl.close();
-          });
-          console.log("Choose your charater Race:")
-          console.log("1 - Black")
-          console.log("2 - White")
-          console.log("3 - Asian")
-          console.log("4 - Other")
-          rl.question('Enter a number (1-3): ', (num) => {
-              console.log(`You chose character class ${num}+!`);
-              switch(num){
+           
+              switch(numb){
                   case '1': this.character.race=Race.Black
                   case '2': this.character.race=Race.White
                   case '3': this.character.race=Race.Asian
                   case '4': this.character.race=Race.Other
               }
-             // rl.close();
-            });
-            console.log("Write your character description:")
-            rl.question('Enter your description: ', (descript) => {
-                console.log(`You chose character class ${descript}+!`);
                 this.character.description=descript
-                }
-               // rl.close();
-              );
-              rl.close();
+               
+           
+         
     }
    
 }
