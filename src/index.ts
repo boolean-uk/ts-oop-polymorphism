@@ -1,54 +1,95 @@
-export class Player {
-    private _health = 52 // when this reaches 0, the player dies
-    private _armour = 14 // an attack must be >= this to hit the player
-
-    get health(): number {
-        return this._health
+import * as readline from 'readline';
+import { Player } from './Player';
+export class RPG{
+    askForAnswer(question: string, callback: (answer: string) => void){
+        const rl = readline.createInterface({
+            input: process.stdin,
+            output: process.stdout,
+          });
+       // console.log("Write your player Name:")
+        rl.question(question, (answer) => {
+            rl.close(); // Close the readline interface
+            callback(answer);
+          });
+        // return new Promise((resolve) => {
+        //     rl.question('Enter your name: ', (name) => {
+        //       rl.close(); // Close the readline interface
+        //       resolve(name);
+        //       console.log(`You chose player Name ${name}+!`);
+        //      // you.setName(name);
+        //     });
+        //   });
     }
+    
+     playRPG():void{//Promise<string>{
+        let you=new Player()
+            let enemy=new Player()
+            enemy.setName("enemy1")
+            you.addEnemy(enemy)
 
-    takeHit(attackType: string): string {
-        let damage: number
+            let enemy2=new Player()
+            enemy.setName("enemy2")
+            you.addEnemy(enemy2)
+       
+        this.askForAnswer('Enter your player name: ', (name) => {
+            you.setName(name)
+            console.log(`Hello, ${name}!`);
 
-        if (attackType === 'sword') {
-            const attackRoll = Math.floor(Math.random() * (20 - 2) + 1) // generate an int between 1 and 20
+            this.askForAnswer('Enter your equipment: ', (equipment) => {
+                console.log(`You chose  ${equipment} as your equipment .`);
+                you.addAttackToEquipment(equipment)
 
-            if (attackRoll >= this._armour) {
-                damage = Math.floor(Math.random() * (8 - 2) + 1)
-                this._health -= damage
-            } else {
-                return 'The sword attack missed!'
-            }
-        } else if (attackType === 'fire spell') {
-            const attackRoll = Math.floor(Math.random() * (20 - 2) + 1)
+                console.log("Character Builder:")
+                console.log("Choose your character Class:")
+                console.log("1 - Royalty")
+                console.log("2 - Nobility")
+                console.log("3 - Peasant")
 
-            if (attackRoll >= this._armour) {
-                damage = Math.floor(Math.random() * (12 - 2) + 1)
-                this._health -= damage
-            } else {
-                return 'The fire spell attack missed!'
-            }
-        } else if (attackType === 'ice spell') {
-            const attackRoll = Math.floor(Math.random() * (20 - 2) + 1)
+                this.askForAnswer('Enter a number (1-3): ', (num) => {
+                console.log(`Your characters class, ${you.character.class} !`);//})
+               
+                  console.log("Choose your charater Race:")
+                  console.log("1 - Black")
+                  console.log("2 - White")
+                  console.log("3 - Asian")
+                  console.log("4 - Other")
+                  this.askForAnswer('Enter a number (1-4): ', (numb) => {
+                    console.log(`Your characters class, ${numb} !`);
+                    console.log("Write your character description:")
 
-            if (attackRoll >= this._armour) {
-                damage = Math.floor(Math.random() * (12 - 2) + 1)
-                this._health -= damage
-            } else {
-                return 'The ice spell attack missed!'
-            }
-        } else if (attackType === 'axe') {
-            const attackRoll = Math.floor(Math.random() * (20 - 2) + 1)
+                    this.askForAnswer('Enter a description: ', (descript) => {
+                        console.log(`You chose character description ${descript} !`);
+                        console.log('Character description '+descript)
+                        console.log('Character built!')
 
-            if (attackRoll >= this._armour) {
-                damage = Math.floor(Math.random() * (10 - 2) + 1)
-                this._health -= damage
-            } else {
-                return 'The axe attack missed!'
-            }
-        } else {
-            return 'Not a valid attack!'
-        }
+                        you.CharacterBuilder(num,numb,descript)
+        
+                this.askForAnswer('Enter your enemy 1-2 :', (enemy) => {
+                    console.log(`You chose  ${enemy} as your enemy .`);
+                    let nenemy=new Player();
+                    switch(enemy){
+                            case '1': nenemy=you.enemies[0]
+                            case '2': nenemy=you.enemies[1]
+                                             
+                    }
 
-        return `The attack hit for ${damage} damage! The player now has ${this._health} health.`
+                    console.log("Your health: "+you.getHealth()+" and armour: "+you.gatArmour())
+                    console.log(you.SpecificCombatEncounters(nenemy,'sword'))
+                    console.log("You fought "+nenemy.getName())
+                    console.log("Your health left: "+you.getHealth()+" and armour: "+you.gatArmour())
+                    console.log("Your enemies health left: "+nenemy.getHealth()+" and armour: "+nenemy.gatArmour())
+                   console.log("Game finished")
+                })})})
+                })
+            })
+        })
+       
+
     }
 }
+const game = new RPG();
+
+// Call the methods on the instance
+game.playRPG();
+//const result = calculator.add(5, 10);
+//console.log(`Result`);
